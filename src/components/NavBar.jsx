@@ -1,40 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../styles/components/navbar.scss";
 
-const Navbar = ({ cartCount }) => {
+const Navbar = ({ cartCount = 0 }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
-    <header className="nav-shell">
-      <div className="nav-inner">
-        <Link to="/" className="nav-logo">
-          <span className="nav-logo__icon">🛠️</span>
-          <span className="nav-logo__text">Toolshop</span>
+    <header className="navbar">
+      <div className="navbar__inner">
+        {/* === LOGO === */}
+        <Link to="/" className="navbar__logo" onClick={closeMenu}>
+          <span className="navbar__logo-icon">🛠️</span>
+          <span className="navbar__logo-text">TOOLSHOP</span>
         </Link>
 
-        <div className="nav-search">
+        {/* === SEARCH (desktop) === */}
+        <div className="navbar__search">
           <input
             type="text"
-            placeholder="Szukaj narzędzi, kategorii, marek..."
+            placeholder="Szukaj narzędzi, marek lub kategorii..."
+            aria-label="Wyszukiwarka"
           />
         </div>
 
-        <nav className="nav-links">
-          <NavLink to="/" end className="nav-link">
+        {/* === DESKTOP LINKS === */}
+        <nav
+          className={`navbar__links ${isMenuOpen ? "navbar__links--open" : ""}`}
+        >
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `navbar__link ${isActive ? "navbar__link--active" : ""}`
+            }
+            onClick={closeMenu}
+          >
             Start
           </NavLink>
-          <NavLink to="/catalog" className="nav-link">
+
+          <NavLink
+            to="/catalog"
+            className={({ isActive }) =>
+              `navbar__link ${isActive ? "navbar__link--active" : ""}`
+            }
+            onClick={closeMenu}
+          >
             Sklep
           </NavLink>
         </nav>
 
-        <div className="nav-actions">
-          <Link to="/cart" className="nav-cart">
-            <span className="nav-cart__icon">🛒</span>
+        {/* === ACTION BUTTONS (CART + BURGER) === */}
+        <div className="navbar__actions">
+          {/* CART */}
+          <Link to="/cart" className="navbar__cart" onClick={closeMenu}>
+            <span className="navbar__cart-icon">🛒</span>
             {cartCount > 0 && (
-              <span className="nav-cart__badge">{cartCount}</span>
+              <span className="navbar__cart-badge">{cartCount}</span>
             )}
           </Link>
+
+          {/* BURGER */}
+          <button
+            className={`navbar__toggle ${
+              isMenuOpen ? "navbar__toggle--active" : ""
+            }`}
+            onClick={toggleMenu}
+            aria-label="Przełącz menu"
+          >
+            <span className="navbar__toggle-bar" />
+            <span className="navbar__toggle-bar" />
+          </button>
         </div>
+      </div>
+
+      {/* === SEARCH (mobile) === */}
+      <div className="navbar__search navbar__search--mobile">
+        <input type="text" placeholder="Szukaj narzędzi..." />
       </div>
     </header>
   );
