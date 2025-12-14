@@ -13,15 +13,15 @@ const Navbar = ({ cartCount = 0 }) => {
       <div className="navbar__inner">
         {/* === LOGO === */}
         <Link to="/" className="navbar__logo" onClick={closeMenu}>
-          <span className="navbar__logo-icon">🛠️</span>
-          <span className="navbar__logo-text">TOOLSHOP</span>
+          <span className="navbar__logo-icon">💎</span>
+          <span className="navbar__logo-text">CryptoLuxe</span>
         </Link>
 
         {/* === SEARCH (desktop) === */}
         <div className="navbar__search">
           <input
             type="text"
-            placeholder="Szukaj narzędzi, marek lub kategorii..."
+            placeholder="Szukaj produktów, kategorii lub marek..."
             aria-label="Wyszukiwarka"
           />
         </div>
@@ -78,7 +78,7 @@ const Navbar = ({ cartCount = 0 }) => {
 
       {/* === SEARCH (mobile) === */}
       <div className="navbar__search navbar__search--mobile">
-        <input type="text" placeholder="Szukaj narzędzi..." />
+        <input type="text" placeholder="Szukaj produktów..." />
       </div>
     </header>
   );

@@ -1,28 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/components/categories.scss";
 
-const categories = [
-  { id: 1, label: "Wiertarki", icon: "🌀" },
-  { id: 2, label: "Szlifierki", icon: "⚙️" },
-  { id: 3, label: "Piły", icon: "🪚" },
-  { id: 4, label: "Pomiar", icon: "📏" },
-  { id: 5, label: "Akcesoria", icon: "🧰" },
-  { id: 6, label: "Warsztat", icon: "🏗️" },
-];
-
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch categories from FakeStore API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("https://fakestoreapi.com/products/categories");
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Błąd pobierania kategorii:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  if (loading) return <p className="loading-text">Ładowanie kategorii...</p>;
+
   return (
     <section className="categories-shell">
       <header className="categories-header">
-        <h2>Kategorie Toolshop</h2>
-        <p>Przykładowe sekcje, które możesz później podpiąć pod API.</p>
+        <h2>Popularne kategorie</h2>
+        <p>Znajdź produkty w interesujących Cię kategoriach.</p>
       </header>
+
       <div className="categories-grid">
-        {categories.map((cat) => (
-          <div className="category-card" key={cat.id}>
-            <div className="category-icon">{cat.icon}</div>
-            <p>{cat.label}</p>
-          </div>
+        {categories.map((cat, index) => (
+          <Link
+            to={`/category/${cat}`}
+            key={index}
+            className="category-card"
+          >
+            <div className="category-icon">📦</div> {/* Możesz potem mapować emoji do kategorii */}
+            <p className="category-label">{cat.charAt(0).toUpperCase() + cat.slice(1)}</p>
+          </Link>
         ))}
       </div>
     </section>

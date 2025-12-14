@@ -1,17 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
-import { products } from "./data/products";
+
+import { fetchProducts } from "./data/products";
 import "./styles/layout.scss";
 
 const App = () => {
   const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // --- POBIERANIE PRODUKTÓW Z API ---
+  useEffect(() => {
+    const load = async () => {
+      const data = await fetchProducts();
+      setProducts(data);
+      setLoading(false);
+    };
+    load();
+  }, []);
+
+  // --- KOSZYK ---
   const handleAddToCart = (product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
@@ -26,11 +41,10 @@ const App = () => {
     });
   };
 
-  const handleRemoveFromCart = (id) => {
+  const handleRemoveFromCart = (id) =>
     setCart((prev) => prev.filter((item) => item.id !== id));
-  };
 
-  const handleChangeQuantity = (id, delta) => {
+  const handleChangeQuantity = (id, delta) =>
     setCart((prev) =>
       prev
         .map((item) =>
@@ -40,18 +54,29 @@ const App = () => {
         )
         .filter((item) => item.quantity > 0)
     );
-  };
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // --- STAN ŁADOWANIA ---
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <p>Ładowanie produktów...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="app-shell">
       <Navbar cartCount={cartCount} />
+
       <main className="app-main">
         <Routes>
           <Route
             path="/"
-            element={<Home products={products} onAddToCart={handleAddToCart} />}
+            element={
+              <Home products={products} onAddToCart={handleAddToCart} />
+            }
           />
           <Route
             path="/catalog"
@@ -62,7 +87,10 @@ const App = () => {
           <Route
             path="/product/:id"
             element={
-              <ProductDetails products={products} onAddToCart={handleAddToCart} />
+              <ProductDetails
+                products={products}
+                onAddToCart={handleAddToCart}
+              />
             }
           />
           <Route
@@ -77,6 +105,7 @@ const App = () => {
           />
         </Routes>
       </main>
+
       <Footer />
     </div>
   );

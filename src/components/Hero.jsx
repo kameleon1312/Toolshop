@@ -9,22 +9,20 @@ const Hero = () => {
 
         {/* ===== LEFT CONTENT ===== */}
         <div className="hero-content">
-          <p className="hero-eyebrow">Nowoczesny e-commerce z narzędziami</p>
+          <p className="hero-eyebrow">Ekskluzywne produkty dla Ciebie</p>
 
           <h1 className="hero-title">
-            Twoje narzędzia.{" "}
-            <span>Twój warsztat. Twój frontendowy Toolshop.</span>
+            Twój styl. <span>Twój wybór. Twój sklep.</span>
           </h1>
 
           <p className="hero-lead">
-            Zbudowany w React + Vite, zaprojektowany jak prawdziwy sklep
-            internetowy. Skupiony na UI/UX, architekturze komponentów i jakości
-            kodu — idealny projekt do portfolio.
+            Odkryj odzież, biżuterię i elektronikę w eleganckim, nowoczesnym stylu.
+            Idealny wybór dla każdego, kto ceni design i jakość.
           </p>
 
           <div className="hero-actions">
             <Link to="/catalog" className="btn-primary">
-              Przeglądaj narzędzia
+              Przeglądaj produkty
             </Link>
 
             <a
@@ -41,13 +39,18 @@ const Hero = () => {
         {/* ===== RIGHT VISUAL ZONE ===== */}
         <div className="hero-visual">
           <div className="hero-card hero-card--primary">
-            <span className="hero-card__icon">⚡</span>
-            <p>Mocne elektronarzędzia</p>
+            <span className="hero-card__icon">👗</span>
+            <p>Stylowa odzież</p>
           </div>
 
           <div className="hero-card hero-card--secondary">
-            <span className="hero-card__icon">✅</span>
-            <p>Wybrane jak do własnego warsztatu</p>
+            <span className="hero-card__icon">💍</span>
+            <p>Elegancka biżuteria</p>
+          </div>
+
+          <div className="hero-card hero-card--tertiary">
+            <span className="hero-card__icon">📱</span>
+            <p>Drobna elektronika</p>
           </div>
 
           <div className="hero-glow"></div>

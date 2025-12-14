@@ -1,23 +1,73 @@
+/* ================================
+   FEATURED PRODUCTS SECTION
+   ================================ */
 .home-featured {
-  margin-top: 28px;
+  margin-top: 40px;
+  padding: 0 clamp(16px, 4vw, 32px);
 
+  /* --- HEADER --- */
   &__header {
-    margin-bottom: 14px;
+    margin-bottom: 20px;
 
     h2 {
-      font-size: 1.2rem;
-      margin-bottom: 4px;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+      color: #f8fafc;
     }
 
     p {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--muted);
+      max-width: 420px;
+      line-height: 1.45;
     }
   }
 
+  /* --- GRID --- */
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+    padding-bottom: 40px;
+
+    /* animacja wczytywania */
+    opacity: 0;
+    animation: fadeIn 0.45s ease forwards;
+  }
+
+  /* fallback UI przy braku produktów */
+  &__empty {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    padding: 12px 0;
+  }
+}
+
+/* --- ANIMACJA wejścia gridu --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- MOBILE OPTIMIZATION --- */
+@media (max-width: 540px) {
+  .home-featured__header h2 {
+    font-size: 1.25rem;
+  }
+
+  .home-featured__header p {
+    font-size: 0.85rem;
+  }
+
+  .home-featured__grid {
     gap: 16px;
   }
 }
