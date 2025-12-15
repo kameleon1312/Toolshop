@@ -9,10 +9,10 @@ const ProductCard = ({ product, onAddToCart }) => {
         {product.badge && (
           <span className="product-card__badge">{product.badge}</span>
         )}
-        <img src={product.image} alt={product.name} />
+        <img src={product.image} alt={product.title || product.name} />
       </Link>
       <div className="product-card__info">
-        <h3>{product.name}</h3>
+        <h3 className="product-card__title">{product.title || product.name}</h3>
         <p className="product-card__category">{product.category}</p>
         <div className="product-card__bottom">
           <span className="product-card__price">{product.price} zł</span>

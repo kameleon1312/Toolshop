@@ -16,8 +16,8 @@ const Hero = () => {
           </h1>
 
           <p className="hero-lead">
-            Odkryj odzież, biżuterię i elektronikę w eleganckim, nowoczesnym stylu.
-            Idealny wybór dla każdego, kto ceni design i jakość.
+            Odkryj odzież, biżuterię i elektronikę w luksusowym, nowoczesnym stylu.
+            Idealny wybór dla osób ceniących design, jakość i wyjątkowe doświadczenia zakupowe.
           </p>
 
           <div className="hero-actions">
@@ -53,6 +53,7 @@ const Hero = () => {
             <p>Drobna elektronika</p>
           </div>
 
+          {/* Efekt glow */}
           <div className="hero-glow"></div>
         </div>
 

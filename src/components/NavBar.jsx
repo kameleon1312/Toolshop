@@ -14,7 +14,7 @@ const Navbar = ({ cartCount = 0 }) => {
         {/* === LOGO === */}
         <Link to="/" className="navbar__logo" onClick={closeMenu}>
           <span className="navbar__logo-icon">💎</span>
-          <span className="navbar__logo-text">CryptoLuxe</span>
+          <span className="navbar__logo-text">FANCYSHOP</span>
         </Link>
 
         {/* === SEARCH (desktop) === */}
