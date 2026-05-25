@@ -12,9 +12,9 @@ export function NotFound() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '60vh',
+        minHeight: '70vh',
         textAlign: 'center',
-        padding: '40px 20px',
+        padding: 'calc(var(--navbar-height) + 40px) 20px 60px',
       }}
     >
       <p style={{

@@ -205,7 +205,16 @@ export function SearchOverlay() {
           transition={{ duration: 0.18 }}
         >
           <div className="search-overlay__backdrop" onClick={closeSearch} aria-hidden="true" />
-          <SearchPanel key="panel" onClose={closeSearch} />
+          <div className="search-overlay__wrap">
+            <SearchPanel key="panel" onClose={closeSearch} />
+            <button
+              className="search-overlay__close"
+              onClick={closeSearch}
+              aria-label="Zamknij wyszukiwarkę"
+            >
+              Zamknij
+            </button>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

@@ -1,5 +1,5 @@
 .product-details {
-  padding: 40px 0 100px;
+  padding: calc(var(--navbar-height) + 36px) 0 100px;
 
   &__inner {
     max-width: 1280px;
@@ -175,5 +175,26 @@
     }
 
     p { color: var(--color-text-2); margin-bottom: 24px; font-size: 0.9rem; }
+  }
+
+  &__related {
+    margin-top: 64px;
+
+    @media (max-width: 860px) { margin-top: 48px; }
+  }
+
+  &__related-header {
+    margin-bottom: 28px;
+  }
+
+  &__related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
   }
 }

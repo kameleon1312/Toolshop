@@ -65,17 +65,8 @@ export function Hero() {
         className="hero__content"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: EASE }}
+        transition={{ duration: 0.35, ease: EASE }}
       >
-        <motion.span
-          className="hero__kicker"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-        >
-          Premium Shop &mdash; 2025
-        </motion.span>
-
         <h1 className="hero__title" aria-label="Nowy Standard.">
           <span className="hero__title-fill" aria-hidden="true">{line1}</span>
           <span className="hero__title-stroke" aria-hidden="true">{line2}</span>
@@ -83,9 +74,9 @@ export function Hero() {
 
         <motion.p
           className="hero__desc"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.5, ease: 'easeOut' }}
+          transition={{ duration: 0.6, delay: 0.55, ease: 'easeOut' }}
         >
           Odkryj starannie dobrane produkty premium — elektronika,
           biżuteria i&nbsp;odzież dla wymagających.
@@ -93,9 +84,9 @@ export function Hero() {
 
         <motion.div
           className="hero__actions"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.7, ease: 'easeOut' }}
+          transition={{ duration: 0.6, delay: 0.7, ease: 'easeOut' }}
         >
           <Link to="/catalog" className="hero__btn-primary">Kup teraz</Link>
           <Link to="/catalog" className="hero__btn-ghost">Przeglądaj kolekcję</Link>
@@ -110,9 +101,9 @@ export function Hero() {
               <motion.div
                 key={p.id}
                 className="hero__grid-item"
-                initial={{ opacity: 0, scale: 0.94 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.1, delay: 0.3 + i * 0.18, ease: EASE }}
+                transition={{ duration: 0.9, delay: 0.15 + i * 0.12, ease: EASE }}
               >
                 <img
                   src={p.image}
@@ -126,12 +117,6 @@ export function Hero() {
         ) : (
           <div className="hero__grid-placeholder" />
         )}
-      </div>
-
-      {/* ── Scroll hint ───────────────────────────────────────────────── */}
-      <div className="hero__scroll-hint" aria-hidden="true">
-        <div className="hero__scroll-dot" />
-        <span className="hero__scroll-label">Scroll</span>
       </div>
 
     </section>

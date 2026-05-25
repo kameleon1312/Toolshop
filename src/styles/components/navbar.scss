@@ -15,15 +15,32 @@
     .navbar__logo-mark          { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
     .navbar__logo-text          { color: rgba(255,255,255,.80); }
     .navbar__logo:hover .navbar__logo-text { color: #fff; }
-    .navbar__link               { color: rgba(255,255,255,.50); }
-    .navbar__link:hover,
-    .navbar__link.active        { color: rgba(255,255,255,.92); }
-    .navbar__link.active::after { background: var(--color-accent); }
+    .navbar__nav .navbar__link               { color: rgba(255,255,255,.50); }
+    .navbar__nav .navbar__link:hover,
+    .navbar__nav .navbar__link.active        { color: rgba(255,255,255,.92); }
+    .navbar__nav .navbar__link.active::after { background: var(--color-accent); }
     .navbar__action-btn         { color: rgba(255,255,255,.55); }
     .navbar__action-btn:hover   { color: #fff; background: rgba(255,255,255,.08); }
     .navbar__divider            { background: rgba(255,255,255,.12); }
-    .navbar__burger             { border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06); }
-    .navbar__burger span        { background: rgba(255,255,255,.70); }
+    .navbar__burger             { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.10); }
+    .navbar__burger span        { background: rgba(255,255,255,.80); }
+
+    // Mobile menu always stays on light background — reset to dark text
+    .navbar__mobile-menu {
+      background: var(--color-surface);
+      border-top-color: rgba(255,255,255,.10);
+
+      .navbar__link {
+        color: var(--color-text-2);
+        &:hover  { color: var(--color-text-1); background: var(--color-elevated); }
+        &.active { color: var(--color-accent); background: var(--color-accent-tint); }
+      }
+
+      .navbar__wishlist-count {
+        background: var(--color-accent);
+        color: #fff;
+      }
+    }
   }
 
   // ── 3-column grid: left | center | right ──────────────────────────────
@@ -147,6 +164,8 @@
     align-items: center;
     gap: 4px;
     justify-self: end;
+
+    @media (max-width: 768px) { display: none; }
   }
 
   &__action-btn {
@@ -213,7 +232,7 @@
       span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
     }
 
-    @media (max-width: 768px) { display: flex; }
+    @media (max-width: 768px) { display: none; }
   }
 
   // ── Mobile menu ───────────────────────────────────────────────────────

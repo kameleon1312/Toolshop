@@ -157,6 +157,9 @@ export function Navbar() {
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
+                {link.to === '/wishlist' && wishlistCount > 0 && (
+                  <span className="navbar__wishlist-count">{wishlistCount}</span>
+                )}
               </NavLink>
             ))}
           </motion.nav>

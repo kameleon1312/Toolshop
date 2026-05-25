@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 import { Navbar }        from '@/components/layout/Navbar';
+import { BottomNav }     from '@/components/layout/BottomNav';
 import { Footer }        from '@/components/layout/Footer';
 import { CartDrawer }    from '@/components/layout/CartDrawer';
 import { SearchOverlay } from '@/components/search/SearchOverlay';
@@ -45,6 +46,7 @@ export default function App() {
         </main>
 
         <Footer />
+        <BottomNav />
       </div>
 
       <CartDrawer />

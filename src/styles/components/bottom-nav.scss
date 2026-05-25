@@ -1,0 +1,123 @@
+// ── Bottom Navigation Bar ─────────────────────────────────────────────────
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 140;
+  display: none;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border-top: 1px solid var(--color-border);
+  padding-bottom: env(safe-area-inset-bottom);
+
+  @media (max-width: 768px) { display: block; }
+
+  // ── Tab bar ──────────────────────────────────────────────────────────────
+
+  &__bar {
+    display: flex;
+    height: var(--bottom-nav-height, 60px);
+  }
+
+  // ── Individual tab ────────────────────────────────────────────────────────
+
+  &__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    position: relative;
+    color: var(--color-text-3);
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    transition: color var(--t-fast) ease;
+    outline: none;
+
+    // ── Top active indicator pill ─────────────────────────────────────────
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 28px;
+      height: 3px;
+      margin-left: -14px;
+      border-radius: 0 0 4px 4px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform var(--t-base) var(--ease-back);
+    }
+
+    &.active {
+      color: var(--color-accent);
+
+      &::before { transform: scaleX(1); }
+
+      .bottom-nav__icon svg { stroke-width: 2.2; }
+    }
+
+    &:active { opacity: 0.7; }
+  }
+
+  // ── Icon wrapper ──────────────────────────────────────────────────────────
+
+  &__icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      transition: transform var(--t-fast) var(--ease-back);
+    }
+  }
+
+  // ── Label ────────────────────────────────────────────────────────────────
+
+  &__label {
+    font-family: var(--font-ui);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  // ── Badge ────────────────────────────────────────────────────────────────
+
+  &__badge {
+    position: absolute;
+    top: -4px;
+    right: -7px;
+    min-width: 16px;
+    height: 16px;
+    border-radius: var(--r-full);
+    background: var(--color-accent);
+    color: #ffffff;
+    font-size: 0.55rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    line-height: 1;
+    border: 2px solid #ffffff;
+    pointer-events: none;
+  }
+}

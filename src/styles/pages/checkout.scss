@@ -1,5 +1,5 @@
 .checkout {
-  padding: 40px 0 80px;
+  padding: calc(var(--navbar-height) + 36px) 0 80px;
 
   &__inner {
     max-width: 860px;

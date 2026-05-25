@@ -18,6 +18,35 @@
     -webkit-backdrop-filter: blur(6px);
   }
 
+  &__wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 660px;
+  }
+
+  &__close {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 11px;
+    border-radius: var(--r-sm);
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.60);
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    transition: background var(--t-fast) ease, color var(--t-fast) ease;
+
+    &:hover  { background: rgba(255, 255, 255, 0.18); color: #ffffff; }
+    &:active { opacity: 0.7; }
+  }
+
   @media (max-width: 480px) { padding-top: 56px; }
 }
 
@@ -25,7 +54,6 @@
 
 .search-panel {
   position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 660px;
   background: #fff;
@@ -92,6 +120,7 @@
 
     @media (max-width: 480px) { display: none; }
   }
+
 
   // ── Body ────────────────────────────────────────────────────────────
 

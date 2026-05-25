@@ -1,5 +1,5 @@
 .catalog {
-  padding: 40px 0 100px;
+  padding: calc(var(--navbar-height) + 36px) 0 100px;
 
   &__inner {
     max-width: 1280px;

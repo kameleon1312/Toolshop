@@ -184,21 +184,17 @@ export function ProductDetails() {
 
           {related.length > 0 && (
             <motion.section
-              style={{ marginTop: 72 }}
+              className="product-details__related"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <div style={{ marginBottom: 28 }}>
+              <div className="product-details__related-header">
                 <p className="eyebrow">Może cię zainteresować</p>
                 <h2 className="section-title">Powiązane produkty</h2>
               </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-                gap: 16,
-              }}>
+              <div className="product-details__related-grid">
                 {related.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
               </div>
             </motion.section>

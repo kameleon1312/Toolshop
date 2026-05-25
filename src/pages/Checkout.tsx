@@ -94,29 +94,29 @@ export function Checkout() {
                 <div className="checkout__form-row">
                   <div className="checkout__field">
                     <label htmlFor="first-name">Imię</label>
-                    <input id="first-name" type="text" placeholder="Jan" required />
+                    <input id="first-name" type="text" placeholder="Jan" required autoComplete="given-name" inputMode="text" />
                   </div>
                   <div className="checkout__field">
                     <label htmlFor="last-name">Nazwisko</label>
-                    <input id="last-name" type="text" placeholder="Kowalski" required />
+                    <input id="last-name" type="text" placeholder="Kowalski" required autoComplete="family-name" inputMode="text" />
                   </div>
                 </div>
                 <div className="checkout__field">
                   <label htmlFor="email">Email</label>
-                  <input id="email" type="email" placeholder="jan@example.com" required />
+                  <input id="email" type="email" placeholder="jan@example.com" required autoComplete="email" inputMode="email" />
                 </div>
                 <div className="checkout__field">
                   <label htmlFor="address">Adres</label>
-                  <input id="address" type="text" placeholder="ul. Przykładowa 1/2" required />
+                  <input id="address" type="text" placeholder="ul. Przykładowa 1/2" required autoComplete="street-address" inputMode="text" />
                 </div>
                 <div className="checkout__form-row">
                   <div className="checkout__field">
                     <label htmlFor="city">Miasto</label>
-                    <input id="city" type="text" placeholder="Warszawa" required />
+                    <input id="city" type="text" placeholder="Warszawa" required autoComplete="address-level2" inputMode="text" />
                   </div>
                   <div className="checkout__field">
                     <label htmlFor="postal">Kod pocztowy</label>
-                    <input id="postal" type="text" placeholder="00-000" required />
+                    <input id="postal" type="text" placeholder="00-000" required autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{2}-[0-9]{3}" />
                   </div>
                 </div>
                 <div className="checkout__actions">
@@ -142,21 +142,21 @@ export function Checkout() {
               <form className="checkout__form" onSubmit={handlePayment}>
                 <div className="checkout__field">
                   <label htmlFor="card-num">Numer karty</label>
-                  <input id="card-num" type="text" placeholder="1234 5678 9012 3456" required maxLength={19} />
+                  <input id="card-num" type="text" placeholder="1234 5678 9012 3456" required maxLength={19} autoComplete="cc-number" inputMode="numeric" />
                 </div>
                 <div className="checkout__form-row">
                   <div className="checkout__field">
                     <label htmlFor="expiry">Ważność</label>
-                    <input id="expiry" type="text" placeholder="MM/RR" required maxLength={5} />
+                    <input id="expiry" type="text" placeholder="MM/RR" required maxLength={5} autoComplete="cc-exp" inputMode="numeric" />
                   </div>
                   <div className="checkout__field">
                     <label htmlFor="cvv">CVV</label>
-                    <input id="cvv" type="text" placeholder="123" required maxLength={3} />
+                    <input id="cvv" type="password" placeholder="•••" required maxLength={4} autoComplete="cc-csc" inputMode="numeric" />
                   </div>
                 </div>
                 <div className="checkout__field">
                   <label htmlFor="card-name">Imię i nazwisko na karcie</label>
-                  <input id="card-name" type="text" placeholder="JAN KOWALSKI" required />
+                  <input id="card-name" type="text" placeholder="JAN KOWALSKI" required autoComplete="cc-name" />
                 </div>
 
                 <div style={{
