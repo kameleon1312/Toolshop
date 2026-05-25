@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Hero } from '@/components/sections/Hero';
 import { Categories } from '@/components/sections/Categories';
+import { RecentlyViewed } from '@/components/sections/RecentlyViewed';
 import { ProductCard } from '@/components/product/ProductCard';
 import { ProductCardSkeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
@@ -103,6 +104,9 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── Recently Viewed ──────────────────────────────────────────── */}
+      <RecentlyViewed />
 
     </PageWrapper>
   );

@@ -1,0 +1,149 @@
+// ── Recently Viewed ────────────────────────────────────────────────────────
+
+.recently-viewed {
+  padding: 56px 0;
+  border-top: 1px solid var(--color-border);
+
+  &__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 5vw, 60px);
+  }
+
+  // ── Header ───────────────────────────────────────────────────────────
+
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  &__titles {
+    .eyebrow { margin-bottom: 6px; }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text-1);
+      line-height: 1.1;
+    }
+  }
+
+  &__clear {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-3);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: color var(--t-fast) ease;
+    white-space: nowrap;
+    padding-bottom: 4px;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover { color: var(--color-text-1); }
+  }
+
+  // ── Scroll track ──────────────────────────────────────────────────────
+
+  &__track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    padding-bottom: 8px;
+    cursor: grab;
+
+    &:active { cursor: grabbing; }
+
+    // hide scrollbar
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  // ── Mini card ─────────────────────────────────────────────────────────
+
+  &__card {
+    flex-shrink: 0;
+    width: 152px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+    transition: transform var(--t-fast) ease, box-shadow var(--t-fast) ease;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:active { transform: translateY(0); }
+
+    @media (max-width: 480px) { width: 136px; }
+  }
+
+  &__card-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--color-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__card-body {
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+  }
+
+  &__card-cat {
+    font-size: 0.60rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: var(--color-accent);
+  }
+
+  &__card-name {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-1);
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__card-price {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: var(--color-text-1);
+    letter-spacing: -0.02em;
+    margin-top: 4px;
+  }
+}

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ProductCard } from '@/components/product/ProductCard';
 import { ProductCardSkeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
+import { FilterSheet } from '@/components/catalog/FilterSheet';
 import { useProducts, useCategories } from '@/hooks/useProducts';
 import { capitalize } from '@/utils/format';
 import type { SortOption } from '@/types';
@@ -21,8 +22,9 @@ export function Catalog() {
   const [activeCategory, setActiveCategory] = useState<string | null>(
     categoryName ? decodeURIComponent(categoryName) : null
   );
-  const [sortBy, setSortBy]       = useState<SortOption>('default');
-  const [maxPrice, setMaxPrice]   = useState<number>(Infinity);
+  const [sortBy, setSortBy]         = useState<SortOption>('default');
+  const [maxPrice, setMaxPrice]     = useState<number>(Infinity);
+  const [sheetOpen, setSheetOpen]   = useState(false);
 
   const { data: products = [], isLoading } = useProducts();
   const { data: categories = [] }           = useCategories();
@@ -51,6 +53,17 @@ export function Catalog() {
     return list;
   }, [products, activeCategory, sortBy, maxPrice]);
 
+  const activeFilterCount =
+    (activeCategory ? 1 : 0) +
+    (maxPrice !== Infinity ? 1 : 0) +
+    (sortBy !== 'default' ? 1 : 0);
+
+  const handleReset = () => {
+    setActiveCategory(null);
+    setMaxPrice(Infinity);
+    setSortBy('default');
+  };
+
   const pageTitle = activeCategory
     ? (CATEGORY_LABELS[activeCategory] ?? capitalize(activeCategory))
     : 'Cały katalog';
@@ -73,6 +86,8 @@ export function Catalog() {
           </motion.div>
 
           <div className="catalog__controls">
+
+            {/* Desktop: category pills */}
             <div className="catalog__filters">
               <button
                 className={`catalog__filter-btn${!activeCategory ? ' catalog__filter-btn--active' : ''}`}
@@ -91,6 +106,24 @@ export function Catalog() {
               ))}
             </div>
 
+            {/* Mobile: filter sheet trigger */}
+            <button
+              className={`catalog__filter-trigger${activeFilterCount > 0 ? ' catalog__filter-trigger--active' : ''}`}
+              onClick={() => setSheetOpen(true)}
+              aria-label={`Otwórz filtry${activeFilterCount > 0 ? ` — ${activeFilterCount} aktywnych` : ''}`}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="4" y1="6"  x2="20" y2="6"  />
+                <line x1="8" y1="12" x2="20" y2="12" />
+                <line x1="12" y1="18" x2="20" y2="18" />
+              </svg>
+              Filtry
+              {activeFilterCount > 0 && (
+                <span className="catalog__filter-badge">{activeFilterCount}</span>
+              )}
+            </button>
+
+            {/* Sort — desktop only (mobile uses sheet) */}
             <div className="catalog__sort">
               <label htmlFor="sort-select">Sortuj:</label>
               <select
@@ -106,6 +139,7 @@ export function Catalog() {
               </select>
             </div>
 
+            {/* Price range — desktop only (mobile uses sheet) */}
             {!isLoading && priceMax > 0 && (
               <div className="catalog__price-filter">
                 <label htmlFor="price-range" className="catalog__price-label">
@@ -141,10 +175,7 @@ export function Catalog() {
               ? (
                 <div className="catalog__empty">
                   <p>Brak produktów spełniających kryteria.</p>
-                  <button
-                    className="btn-ghost"
-                    onClick={() => { setActiveCategory(null); setMaxPrice(Infinity); }}
-                  >
+                  <button className="btn-ghost" onClick={handleReset}>
                     Resetuj filtry
                   </button>
                 </div>
@@ -154,6 +185,22 @@ export function Catalog() {
           </div>
         </div>
       </div>
+
+      <FilterSheet
+        isOpen={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        categories={categories}
+        activeCategory={activeCategory}
+        setActiveCategory={setActiveCategory}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        maxPrice={maxPrice}
+        setMaxPrice={setMaxPrice}
+        priceMax={priceMax}
+        resultCount={filtered.length}
+        activeFilterCount={activeFilterCount}
+        onReset={handleReset}
+      />
     </PageWrapper>
   );
 }

@@ -144,6 +144,27 @@
     }
   }
 
+  &__add-btn {
+    transition: background var(--t-fast) ease, transform var(--t-fast) ease, box-shadow var(--t-fast) ease;
+    &--added {
+      background: var(--color-ok) !important;
+      box-shadow: 0 4px 16px rgba(42, 122, 80, 0.30) !important;
+      &:hover { background: var(--color-ok) !important; }
+    }
+  }
+
+  &__wish-btn {
+    gap: 8px;
+    svg { flex-shrink: 0; transition: transform var(--t-fast) var(--ease-back); }
+    &--active {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      background: var(--color-accent-tint);
+      animation: heart-burst var(--t-base) var(--ease-back);
+      svg { transform: scale(1.2); }
+    }
+  }
+
   &__meta {
     display: flex;
     flex-direction: column;

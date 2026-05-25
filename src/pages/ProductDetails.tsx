@@ -1,10 +1,14 @@
+import { useRef, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useProduct, useProducts } from '@/hooks/useProducts';
 import { useCartStore } from '@/store/cartStore';
 import { useWishlistStore } from '@/store/wishlistStore';
 import { useUiStore } from '@/store/uiStore';
+import { useRecentlyViewedStore } from '@/store/recentlyViewedStore';
 import { ProductCard } from '@/components/product/ProductCard';
+import { BuyBar } from '@/components/product/BuyBar';
+import { RecentlyViewed } from '@/components/sections/RecentlyViewed';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { PageWrapper } from '@/components/ui/PageWrapper';
 import { formatPrice, capitalize } from '@/utils/format';
@@ -29,7 +33,10 @@ function StarRating({ rate }: { rate: number }) {
 }
 
 export function ProductDetails() {
+  const actionsRef = useRef<HTMLDivElement>(null);
+  const [addedToCart, setAddedToCart] = useState(false);
   const { id } = useParams<{ id: string }>();
+  const addRecentlyViewed = useRecentlyViewedStore((s) => s.add);
   const { data: product, isLoading, isError } = useProduct(id);
   const { data: all = [] } = useProducts();
   const { addItem, openDrawer } = useCartStore();
@@ -43,11 +50,16 @@ export function ProductDetails() {
   const inWishlist = product ? has(product.id) : false;
 
   const handleAdd = () => {
-    if (!product) return;
+    if (!product || addedToCart) return;
     addItem(product);
     addToast('Dodano do koszyka');
-    openDrawer();
+    setAddedToCart(true);
+    setTimeout(() => { setAddedToCart(false); openDrawer(); }, 1200);
   };
+
+  useEffect(() => {
+    if (product) addRecentlyViewed(product);
+  }, [product?.id]);
 
   const handleWishlist = () => {
     if (!product) return;
@@ -148,13 +160,41 @@ export function ProductDetails() {
 
                   <p className="product-details__description">{product!.description}</p>
 
-                  <div className="product-details__actions">
-                    <button className="btn-primary" onClick={handleAdd}>
-                      Dodaj do koszyka
-                    </button>
-                    <button className="btn-ghost" onClick={handleWishlist}>
-                      {inWishlist ? '♥ W ulubionych' : '♡ Ulubione'}
-                    </button>
+                  <div ref={actionsRef} className="product-details__actions">
+                    <motion.button
+                      className={`btn-primary product-details__add-btn${addedToCart ? ' product-details__add-btn--added' : ''}`}
+                      onClick={handleAdd}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      <AnimatePresence mode="wait" initial={false}>
+                        {addedToCart ? (
+                          <motion.span key="added" style={{ display: 'flex', alignItems: 'center', gap: 7 }}
+                            initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.18 }}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                            Dodano!
+                          </motion.span>
+                        ) : (
+                          <motion.span key="add"
+                            initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.18 }}
+                          >
+                            Dodaj do koszyka
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </motion.button>
+                    <motion.button
+                      className={`btn-ghost product-details__wish-btn${inWishlist ? ' product-details__wish-btn--active' : ''}`}
+                      onClick={handleWishlist}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill={inWishlist ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                      </svg>
+                      {inWishlist ? 'W ulubionych' : 'Ulubione'}
+                    </motion.button>
                   </div>
 
                   <div className="product-details__meta">
@@ -182,6 +222,8 @@ export function ProductDetails() {
             </motion.div>
           </div>
 
+          <RecentlyViewed excludeId={id} />
+
           {related.length > 0 && (
             <motion.section
               className="product-details__related"
@@ -201,6 +243,16 @@ export function ProductDetails() {
           )}
         </div>
       </div>
+
+      {product && (
+        <BuyBar
+          product={product}
+          actionsRef={actionsRef}
+          inWishlist={inWishlist}
+          onAdd={handleAdd}
+          onWishlist={handleWishlist}
+        />
+      )}
     </PageWrapper>
   );
 }
